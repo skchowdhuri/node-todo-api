@@ -23,9 +23,13 @@ app.post('/todos',(req,res)=>{
         }
         console.log('Saved');
         res.send(doc);
-    })
-    todo
+    });
 });
+app.get('/todos',(req,res)=>{
+    todoModel.find({},function(err,doc){
+        res.send(doc);
+    })
+})
 app.get('/todos/:id',(req,res)=>{
     var id=req.params.id;
     if(!ObjectID.isValid(id)){
@@ -37,6 +41,19 @@ app.get('/todos/:id',(req,res)=>{
         }
         res.send(doc);
     });
+});
+
+app.delete('/todos/:id', (req,res)=>{
+    var id=req.params.id;
+    if(!ObjectID.isValid){
+        return res.status(400).send();
+    }
+    todoModel.findByIdAndRemove(id, function(err,doc){
+        if(err || !doc){
+            return res.status(404).send();
+        }
+        res.send(doc);
+    })
 })
 
 app.listen(port,()=>{

@@ -4,8 +4,7 @@ var todoSchema = new mongoose.Schema({
     text: {
         type: String,
         required: true,
-        minlength: 4,
-        unique: true
+        default: 'Sagor Chowdhuri'
     },
     completed: {type: Boolean,default:false},
     completedAt: {type: Number,default:null}
